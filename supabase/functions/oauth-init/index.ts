@@ -33,11 +33,27 @@ serve(async (req) => {
           `prompt=consent`;
         break;
 
-      // Add other providers here as needed
+      case 'todoist':
+        const TODOIST_CLIENT_ID = Deno.env.get('TODOIST_CLIENT_ID');
+        if (!TODOIST_CLIENT_ID) {
+          throw new Error('Todoist client ID not configured');
+        }
+
+        const todoistScope = 'task:add,data:read';
+        authUrl = `https://todoist.com/oauth/authorize?` +
+          `client_id=${TODOIST_CLIENT_ID}&` +
+          `scope=${todoistScope}&` +
+          `state=todoist&` +
+          `redirect_uri=${encodeURIComponent(REDIRECT_URL)}`;
+        break;
+
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
 
+    console.log(`Initiating OAuth flow for provider: ${provider}`);
+    console.log(`Redirect URL: ${REDIRECT_URL}`);
+    
     return new Response(
       JSON.stringify({ url: authUrl }),
       { 
