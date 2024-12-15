@@ -9,7 +9,69 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      integration_preferences: {
+        Row: {
+          created_at: string | null
+          enabled: boolean | null
+          id: string
+          provider: string
+          settings: Json | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          enabled?: boolean | null
+          id?: string
+          provider: string
+          settings?: Json | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          enabled?: boolean | null
+          id?: string
+          provider?: string
+          settings?: Json | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      oauth_tokens: {
+        Row: {
+          access_token: string
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          provider: string
+          refresh_token: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          provider: string
+          refresh_token?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          provider?: string
+          refresh_token?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
