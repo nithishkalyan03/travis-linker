@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { useToast } from "@/components/ui/use-toast";
+import { IntegrationsPanel } from "@/components/IntegrationsPanel";
 
 interface Message {
   role: "user" | "assistant";
@@ -61,23 +62,26 @@ const Index = () => {
       </header>
       
       <main className="flex-1 overflow-y-auto p-4">
-        <div className="max-w-3xl mx-auto message-container">
-          {messages.map((message, index) => (
-            <ChatMessage
-              key={index}
-              role={message.role}
-              content={message.content}
-              animate={index === messages.length - 1}
-            />
-          ))}
-          {isLoading && (
-            <ChatMessage
-              role="assistant"
-              content="Thinking..."
-              animate={true}
-            />
-          )}
-          <div ref={messagesEndRef} />
+        <div className="max-w-3xl mx-auto space-y-6">
+          <IntegrationsPanel />
+          <div className="message-container">
+            {messages.map((message, index) => (
+              <ChatMessage
+                key={index}
+                role={message.role}
+                content={message.content}
+                animate={index === messages.length - 1}
+              />
+            ))}
+            {isLoading && (
+              <ChatMessage
+                role="assistant"
+                content="Thinking..."
+                animate={true}
+              />
+            )}
+            <div ref={messagesEndRef} />
+          </div>
         </div>
       </main>
       
